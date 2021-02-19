@@ -1,15 +1,28 @@
 <template>
-  <div class="app-header">
-    <div v-if="this.images.length && getUrl != 'undefined'" 
-      class="app-cover" 
-      :style="{ backgroundImage: 'url(' + getUrl + ')' }"></div>
-    <div class="search-field">
-      <input type="text"
-        v-model="query"
-        @keypress.enter="showResults"
-      >
+  <section class="hero is-medium is-primary app-header">
+    <div class="hero-body">
+      <div 
+        v-if="this.images.length && getUrl != 'undefined'"
+        class="app-cover" 
+        :style="{ backgroundImage: 'url(' + getUrl + ')' }">
+      </div>
+      <p class="title"><span class="highlight">Powered by creators everywhere</span></p>
+      <div class="search-field">
+        <input 
+          type="text"
+          placeholder="Search free hight-resolution photos"
+          class="input"
+          v-model="query"
+          @keypress.enter="showResults"
+        >
+      </div>
+      <div class="image-info">
+        <p v-if="this.images.length && getUser != 'undefined'" class="subtitle is-4"><span class="highlight">Photo by {{ getUser }} ({{ getDate }})</span></p>
+        <p v-if="this.images.length && getLikes != 'undefined'" class="subtitle is-4"><span class="highlight">Likes: {{ getLikes }}</span></p>
+        <p v-if="this.images.length && getWidth != 'undefined' && getHeight != 'undefined'" class="subtitle is-4"><span class="highlight">Dimensions: {{ getWidth }} × {{ getHeight }}</span></p>
+      </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -17,7 +30,7 @@ import ImageService from '@/services/ImageService.js'
 export default {
 data() {
   return {
-    query: 'amsterdam',
+    query: '',
     images: ''
   }
 },
@@ -25,6 +38,26 @@ computed: {
   getUrl() {
     let url = this.images[0].urls.full;
     return url;
+  },
+  getUser() {
+    let user = this.images[0].user.name;
+    return user;
+  },
+  getDate() {
+    let date = this.images[0].created_at.slice(0, 10);
+    return date;
+  },
+  getLikes() {
+    let likes = this.images[0].likes;
+    return likes;
+  },
+  getWidth() {
+    let width = this.images[0].width;
+    return width;
+  },
+  getHeight() {
+    let height = this.images[0].height;
+    return height;
   }
 },
 methods: {
@@ -32,7 +65,7 @@ methods: {
       ImageService.getSearch(this.query)
       .then(response => {
         this.images = response.data.results
-        //console.log(this.images)
+        console.log(this.images)
       })
       .catch(error => {
         console.log('There was an error:', error.response)
@@ -44,14 +77,10 @@ methods: {
 
 <style>
 .app-header {
-  min-height: 400px;
-  background: antiquewhite;
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   z-index: 11;
   margin-bottom: 2rem;
+  /* background: #dbc3d0; */
 }
 
 .app-cover {
@@ -66,9 +95,38 @@ methods: {
   z-index: 1;
 }
 
+.app-cover:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 0;
+}
+
 .search-field {
   margin-bottom: 2rem;
   position: relative;
   z-index: 10;
+}
+
+.title, .subtitle, p {
+  position: relative;
+  z-index: 10;
+  color: #fff;
+}
+
+.image-info {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 3rem;
+}
+
+.highlight {
+  /* background: #5e0231;
+  padding: 0.2rem 0.4rem; */
 }
 </style>
