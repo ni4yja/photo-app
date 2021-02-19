@@ -1,13 +1,7 @@
 <template>
   <div id="app">
     <div class="app-container">
-      <div class="search-field">
-        <input type="text"
-          v-model="query"
-          @keypress.enter="showResults"
-        >
-        <button @click="showResults">Search</button>
-      </div>
+      <AppHeader></AppHeader>
       <div class="images-grid">
         <stack
           :column-min-width="300"
@@ -16,52 +10,54 @@
           monitor-images-loaded
         >
           <stack-item
-            v-for="(image, index) in images"
+            v-for="(photo, index) in photos"
             :key="index"
             style="transition: transform 300ms"
           >
-            <img :src="image.urls.small" :alt="image.alt_description" />
+            <img class="images-grid--item" :src="photo.urls.small" :alt="photo.alt_description" />
           </stack-item>
         </stack>
       </div>
-      <!-- <p v-for="(image, index) in images" :key="index">
-        <img :src="image.urls.small" :alt="image.alt_description" />
-      </p> -->
     </div>
   </div>
 </template>
 
 <script>
 import ImageService from '@/services/ImageService.js'
+import AppHeader from '@/components/AppHeader.vue'
 import { Stack, StackItem } from 'vue-stack-grid';
 
 export default {
   name: "app",
   components: {
+    AppHeader,
     Stack,
     StackItem
   },
   data() {
     return {
-      query: 'amsterdam',
-      images: []
+      photos: []
     }
   },
-  methods: {
-    showResults() {
-      ImageService.getImages(this.query)
+  created() {
+    ImageService.getRandom()
       .then(response => {
-        this.images = response.data.results
+        this.photos = response.data
       })
       .catch(error => {
         console.log('There was an error:', error.response)
       })
-    }
   }
 }
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
@@ -73,7 +69,7 @@ export default {
   margin: 0 auto;
 }
 
-img {
+.images-grid--item {
   width: 100%;
   height: auto;
   border-radius: 12px;

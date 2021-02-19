@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let api_key = process.env.VUE_APP_API_KEY
+const api_key = process.env.VUE_APP_API_KEY
 
 const apiClient = axios.create({
   baseURL: `https://api.unsplash.com`,
@@ -12,7 +12,10 @@ const apiClient = axios.create({
 })
 
 export default {
-  getImages(topic) {
-    return apiClient.get('/search/photos?query=' + `${topic}` + '&per_page=20')
+  getSearch(topic) {
+    return apiClient.get('/search/photos?query=' + `${topic}` + '&per_page=1')
+  },
+  getRandom() {
+    return apiClient.get('/photos/random?count=20')
   }
 }
