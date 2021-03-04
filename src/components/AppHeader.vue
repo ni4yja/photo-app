@@ -65,7 +65,7 @@ methods: {
       ImageService.getSearch(this.query)
       .then(response => {
         this.images = response.data.results
-        console.log(this.images)
+        //console.log(this.images)
       })
       .catch(error => {
         console.log('There was an error:', error.response)
@@ -75,7 +75,7 @@ methods: {
 }
 </script>
 
-<style>
+<style scoped>
 .app-header {
   position: relative;
   z-index: 11;

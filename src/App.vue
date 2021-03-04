@@ -2,6 +2,7 @@
   <div id="app">
     <div class="app-container">
       <AppHeader></AppHeader>
+      <AppModal :modal="isVisible" :photo="details" v-if="isVisible" @closeModal="closeModal"></AppModal>
       <div class="images-grid">
         <stack
           :column-min-width="300"
@@ -14,7 +15,7 @@
             :key="index"
             style="transition: transform 300ms"
           >
-            <img class="images-grid--item" :src="photo.urls.small" :alt="photo.alt_description" />
+            <img class="images-grid--item" :src="photo.urls.small" :alt="photo.alt_description" @click="openModal(photo)"/>
           </stack-item>
         </stack>
       </div>
@@ -24,19 +25,23 @@
 
 <script>
 import ImageService from '@/services/ImageService.js'
-import AppHeader from '@/components/AppHeader.vue'
-import { Stack, StackItem } from 'vue-stack-grid';
+import AppHeader from '@/components/AppHeader'
+import AppModal from '@/components/AppModal'
+import { Stack, StackItem } from 'vue-stack-grid'
 
 export default {
   name: "app",
   components: {
     AppHeader,
     Stack,
-    StackItem
+    StackItem,
+    AppModal
   },
   data() {
     return {
-      photos: []
+      photos: [],
+      isVisible: false,
+      details: []
     }
   },
   created() {
@@ -47,6 +52,16 @@ export default {
       .catch(error => {
         console.log('There was an error:', error.response)
       })
+  },
+  methods: {
+    openModal(photo) {
+      this.isVisible = true;
+      this.details = photo;
+      console.log(this.details.exif);
+    },
+    closeModal() {
+      this.isVisible = false;
+    }
   }
 }
 </script>
