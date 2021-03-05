@@ -35,22 +35,4 @@ export default {
   position: relative;
   display: flex;
 }
-
-.app-content {
-  width: calc(100% - 20rem);
-  position: relative;
-  left: 20rem;
-}
-
-.images-grid {
-  max-width: 80vw;
-  margin: 0 auto;
-  padding: 0 2rem 2rem;
-}
-
-.images-grid--item {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-}
 </style>

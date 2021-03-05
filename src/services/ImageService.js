@@ -17,5 +17,8 @@ export default {
   },
   getRandom() {
     return apiClient.get('/photos/random?count=20')
+  },
+  getCollections() {
+    return apiClient.get('/collections?per_page=12')
   }
 }

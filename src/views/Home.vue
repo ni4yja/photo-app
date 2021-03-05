@@ -54,7 +54,6 @@ export default {
     openModal(photo) {
       this.isVisible = true;
       this.details = photo;
-      console.log(this.details);
     },
     closeModal() {
       this.isVisible = false;
@@ -64,5 +63,21 @@ export default {
 </script>
 
 <style>
+.app-content {
+  width: calc(100% - 20rem);
+  position: relative;
+  left: 20rem;
+}
 
+.images-grid {
+  max-width: 80vw;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.images-grid--item {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
 </style>
