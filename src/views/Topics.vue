@@ -48,13 +48,21 @@ export default {
       orderBy: 'featured'
     }
   },
-  methods: {
-    getImages() {
-      ImageService.getTopics()
+  created() {
+    ImageService.getTopics(this.orderBy)
       .then(response => {
         this.topics = response.data
-        console.log(this.topics)
-        console.log(this.orderBy)
+      })
+      .catch(error => {
+        console.log('There was an error:', error.response)
+      })
+  }
+  ,
+  methods: {
+    getImages() {
+      ImageService.getTopics(this.orderBy)
+      .then(response => {
+        this.topics = response.data
       })
       .catch(error => {
         console.log('There was an error:', error.response)
