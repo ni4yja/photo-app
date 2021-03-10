@@ -46,7 +46,6 @@ export default {
     ImageService.getCollections()
       .then(response => {
         this.collections = response.data
-        console.log(this.collections)
       })
       .catch(error => {
         console.log('There was an error:', error.response)

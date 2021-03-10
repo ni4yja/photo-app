@@ -20,5 +20,8 @@ export default {
   },
   getCollections() {
     return apiClient.get('/collections?per_page=12')
+  },
+  getTopics(orderBy) {
+    return apiClient.get('/topics?order_by=' + `${orderBy}` + '&per_page=12')
   }
 }

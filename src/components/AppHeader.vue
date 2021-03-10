@@ -6,7 +6,7 @@
         class="app-cover" 
         :style="{ backgroundImage: 'url(' + getUrl + ')' }">
       </div>
-      <p class="title"><span class="highlight">Powered by creators everywhere</span></p>
+      <p class="title">Powered by creators everywhere</p>
       <div class="search-field">
         <input 
           type="text"
@@ -17,9 +17,9 @@
         >
       </div>
       <div class="image-info">
-        <p v-if="this.images.length && getUser != 'undefined'" class="subtitle is-4"><span class="highlight">Photo by {{ getUser }} ({{ getDate }})</span></p>
-        <p v-if="this.images.length && getLikes != 'undefined'" class="subtitle is-4"><span class="highlight">Likes: {{ getLikes }}</span></p>
-        <p v-if="this.images.length && getWidth != 'undefined' && getHeight != 'undefined'" class="subtitle is-4"><span class="highlight">Dimensions: {{ getWidth }} × {{ getHeight }}</span></p>
+        <p v-if="this.images.length && getUser != 'undefined'" class="subtitle is-4">Photo by {{ getUser }} ({{ getDate }})</p>
+        <p v-if="this.images.length && getLikes != 'undefined'" class="subtitle is-4">Likes: {{ getLikes }}</p>
+        <p v-if="this.images.length && getWidth != 'undefined' && getHeight != 'undefined'" class="subtitle is-4">Dimensions: {{ getWidth }} × {{ getHeight }}</p>
       </div>
     </div>
   </section>
@@ -120,10 +120,5 @@ methods: {
   justify-content: space-around;
   position: absolute;
   bottom: 3rem;
-}
-
-.highlight {
-  /* background: #5e0231;
-  padding: 0.2rem 0.4rem; */
 }
 </style>
