@@ -49,15 +49,8 @@ export default {
     }
   },
   created() {
-    ImageService.getTopics(this.orderBy)
-      .then(response => {
-        this.topics = response.data
-      })
-      .catch(error => {
-        console.log('There was an error:', error.response)
-      })
-  }
-  ,
+    this.getImages()
+  },
   methods: {
     getImages() {
       ImageService.getTopics(this.orderBy)

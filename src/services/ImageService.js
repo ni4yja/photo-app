@@ -23,5 +23,8 @@ export default {
   },
   getTopics(orderBy) {
     return apiClient.get('/topics?order_by=' + `${orderBy}` + '&per_page=12')
+  },
+  getStats() {
+    return apiClient.get('/stats/month')
   }
 }

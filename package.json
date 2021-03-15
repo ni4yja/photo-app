@@ -10,9 +10,11 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bulma": "^0.9.2",
+    "chart.js": "^2.9.4",
     "core-js": "^3.6.5",
     "material-design-icons": "^3.0.1",
     "vue": "^2.6.11",
+    "vue-chartjs": "^3.5.1",
     "vue-router": "^3.5.1",
     "vue-stack-grid": "^1.2.2"
   },
@@ -24,7 +26,8 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
     "node-sass": "^5.0.0",
-    "sass-loader": "^11.0.1",
+    "sass-loader": "^10.1.1",
+    "style-loader": "^2.0.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
