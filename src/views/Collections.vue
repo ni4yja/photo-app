@@ -72,6 +72,7 @@ export default {
 
 @media (max-width: 768px) {
   .cards-container {
+    max-width: 100%;
     grid-template-columns: 1fr;
   }
 }

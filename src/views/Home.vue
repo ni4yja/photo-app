@@ -69,10 +69,23 @@ export default {
   left: 20rem;
 }
 
+@media (max-width: 768px) {
+  .app-content {
+    left: 0;
+    width: 100%;
+  }
+}
+
 .images-grid {
   max-width: 80vw;
   margin: 0 auto;
   padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .images-grid {
+    max-width: 100%;
+  }
 }
 
 .images-grid--item {
@@ -80,4 +93,5 @@ export default {
   height: auto;
   border-radius: 12px;
 }
+
 </style>

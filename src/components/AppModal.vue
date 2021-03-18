@@ -80,6 +80,12 @@ export default {
   width: 60%;
 }
 
+@media (max-width: 768px) {
+  .modal-content {
+    flex-direction: column;
+  }
+}
+
 .modal-content .title,
 .modal-content .subtitle {
   text-align: left;
