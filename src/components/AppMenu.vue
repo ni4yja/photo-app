@@ -91,7 +91,15 @@ export default {
         this.showNav = false
         this.menuActive = false
       }
+    },
+    desktopView() {
+      this.showNav = window.innerWidth > 768
+      this.menuActive = window.innerWidth > 768
     }
+  },
+  created() {
+    this.desktopView()
+    window.addEventListener('resize', this.desktopView)
   }
 }
 </script>
