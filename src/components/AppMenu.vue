@@ -1,9 +1,9 @@
 <template>
   <div class="app-menu-tab">
-    <span class="material-icons burger" @click="toggleActive" ref="button">menu</span>
+    <span class="material-icons burger" @click="toggleNav" ref="button">menu</span>
     <section class="app-menu" :class="[showNav ? 'slide-in' : 'slide-out']">
       <div class="app-menu-wrapper" 
-        v-show="menuActive"  
+        v-show="showNav"  
         v-closable="{
           exclude: ['button'],
           handler: 'onClose'
@@ -77,24 +77,20 @@ Vue.directive('closable', {
 export default {
   data() {
     return {
-      showNav: window.innerWidth > 768,
-      menuActive: window.innerWidth > 768
+      showNav: window.innerWidth > 768
     }
   },
   methods: {
-    toggleActive() {
-      this.menuActive = !this.menuActive
+    toggleNav() {
       this.showNav = !this.showNav
     },
     onClose() {
       if (window.innerWidth <= 768) {
         this.showNav = false
-        this.menuActive = false
       }
     },
     desktopView() {
       this.showNav = window.innerWidth > 768
-      this.menuActive = window.innerWidth > 768
     }
   },
   created() {
