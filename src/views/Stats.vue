@@ -1,8 +1,13 @@
 <template>
   <div class="app-content">
     <AppHeader/>
-    <div class="chart">
-      <canvas ref="canvas"></canvas>
+    <div class="container">
+      <h2 class="title">Here is our stats</h2>
+      <bar-chart
+        v-if="loaded"
+        :chartdata="chartdata"
+        :options="options"
+      />
     </div>
   </div>
 </template>
@@ -10,55 +15,50 @@
 <script>
 import ImageService from '@/services/ImageService.js'
 import AppHeader from '@/components/AppHeader'
-import {PolarArea} from 'vue-chartjs'
+import BarChart from '@/components/Chart.vue'
 
 export default {
+  name: 'BarChartContainer',
   components: {
-    AppHeader
+    AppHeader,
+    BarChart
   },
-  extends: PolarArea,
   data() {
     return {
-      downloads: [],
-      views: []
+      loaded: false,
+      chartdata: null
     }
   },
-  created() {
-    this.showStats()
-  },
   mounted() {
-    this.renderChart({
-      labels: ['Downloads', 'Views'],
-      datasets: [
-        {
-          label: 'Data One',
-          data: [this.downloads, this.views],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-          ]
-        }
-      ]
-    })
-  },
-  methods: {
-    showStats() {
-      ImageService.getStats()
+    this.loaded = false
+    ImageService.getStats()
       .then(response => {
-        this.downloads = response.data.downloads
-        this.views = response.data.views
-        console.log(response.data)
-        console.log(this.downloads)
-        console.log(this.views)
+        const userlist = {
+          labels: ['New developers', 'New photographers'], 
+          datasets: [
+            {
+              label: 'This month',
+              backgroundColor: ['#ffe45e', '#ff6392'],
+              data: [response.data.new_developers, response.data.new_photographers]
+            }
+          ] 
+        }
+        this.chartdata = userlist
+        this.options = {
+          responsive: true,
+          maintainAspectRatio: false
+        }
+        this.loaded = true
       })
       .catch(error => {
         console.log('There was an error:', error.response)
       })
-    }
   }
 }
 </script>
 
-<style>
-
+<style land="scss" scoped>
+  .title {
+    margin-top: 2rem;
+  }
 </style>
