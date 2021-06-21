@@ -2,21 +2,15 @@
   <div class="app-content">
     <AppHeader/>
     <AppModal :modal="isVisible" :photo="details" v-if="isVisible" @closeModal="closeModal"/>
-    <div class="images-grid">
-      <stack
-        :column-min-width="300"
-        :gutter-width="15"
-        :gutter-height="15"
-        monitor-images-loaded
-      >
-        <stack-item
-          v-for="(photo, index) in photos"
-          :key="index"
-          style="transition: transform 300ms"
-        >
-          <img class="images-grid--item" :src="photo.urls.small" :alt="photo.alt_description" @click="openModal(photo)"/>
-        </stack-item>
-      </stack>
+    <div class="cards-container">
+      <div class="card" v-for="(photo, index) in photos" :key="index">
+        <div class="card-image">
+          <figure class="image is-4by3" 
+          :style="{ backgroundImage: 'url(' + photo.urls.small + ')' }"
+          :alt="photo.alt_description" @click="openModal(photo)">
+          </figure>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -25,13 +19,10 @@
 import ImageService from '@/services/ImageService.js'
 import AppHeader from '@/components/AppHeader'
 import AppModal from '@/components/AppModal'
-import { Stack, StackItem } from 'vue-stack-grid'
 
 export default {
   components: {
     AppHeader,
-    Stack,
-    StackItem,
     AppModal
   },
   data() {
@@ -75,23 +66,4 @@ export default {
     width: 100%;
   }
 }
-
-.images-grid {
-  max-width: 80vw;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-@media (max-width: 768px) {
-  .images-grid {
-    max-width: 100%;
-  }
-}
-
-.images-grid--item {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-}
-
 </style>

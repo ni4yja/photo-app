@@ -16,7 +16,7 @@ export default {
     return apiClient.get('/search/photos?query=' + `${topic}` + '&per_page=1')
   },
   getRandom() {
-    return apiClient.get('/photos/random?count=20')
+    return apiClient.get('/photos/random?count=18')
   },
   getCollections() {
     return apiClient.get('/collections?per_page=12')

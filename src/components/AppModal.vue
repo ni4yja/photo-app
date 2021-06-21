@@ -9,7 +9,7 @@
           <h4 class="subtitle is-4"><a href="#">@{{ photo.user.username }}</a></h4>
         </div>
         <div class="row">
-          <h5 class="title is-5">Info</h5>
+          <h5 class="title is-5">Info:</h5>
           <p class="subtitle is-5">Published on {{ getDate }}</p>
         </div>
         <div class="row flex">
@@ -83,6 +83,7 @@ export default {
 @media (max-width: 768px) {
   .modal-content {
     flex-direction: column;
+    width: 90%;
   }
 }
 
@@ -93,6 +94,12 @@ export default {
 
 .modal-image {
   margin-right: 2rem;
+}
+
+@media (max-width: 768px) {
+  .modal-image {
+    margin-right: 0;
+  }
 }
 
 .modal-info {

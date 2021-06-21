@@ -1,7 +1,6 @@
 <template>
   <div class="app-content">
     <AppHeader/>
-    <!-- <button class="button" @click="getImages">Get topics</button> -->
     <div class="select">
       <select
         v-model="orderBy"

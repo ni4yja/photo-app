@@ -36,7 +36,7 @@ data() {
 },
 computed: {
   getUrl() {
-    let url = this.images[0].urls.full;
+    let url = this.images[0].urls.regular;
     return url;
   },
   getUser() {
@@ -74,7 +74,7 @@ methods: {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .app-header {
   position: relative;
   z-index: 11;
@@ -120,5 +120,18 @@ methods: {
   justify-content: space-around;
   position: absolute;
   bottom: 3rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .image-info {
+    position: relative;
+    bottom: 0;
+  }
+} 
+
+@media screen and (max-width: 768px) {
+  .image-info {
+    flex-direction: column;
+  }
 }
 </style>
