@@ -6,7 +6,7 @@
         v-show="showNav"  
         v-closable="{
           exclude: ['button'],
-          handler: 'onClose'
+          handler: 'checkWindow'
         }"
       >
         <router-link class="title is-5" to="/">Photo App Logo</router-link>
@@ -84,18 +84,17 @@ export default {
     toggleNav() {
       this.showNav = !this.showNav
     },
-    onClose() {
-      if (window.innerWidth <= 768) {
-        this.showNav = false
-      }
-    },
-    desktopView() {
+    checkWindow() {
       this.showNav = window.innerWidth > 768
     }
   },
   created() {
-    this.desktopView()
-    window.addEventListener('resize', this.desktopView)
+    this.checkWindow()
+    window.addEventListener('resize', this.checkWindow)
+  },
+  destroyed() {
+    // Should remove listener
+    window.removeEventListener('resize', this.checkWindow)
   }
 }
 </script>

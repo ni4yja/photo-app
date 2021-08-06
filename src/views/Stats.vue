@@ -26,33 +26,37 @@ export default {
   data() {
     return {
       loaded: false,
-      chartdata: null
+      chartdata: null,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
     }
   },
-  mounted() {
-    this.loaded = false
-    ImageService.getStats()
-      .then(response => {
-        const userlist = {
-          labels: ['New developers', 'New photographers'], 
-          datasets: [
-            {
-              label: 'This month',
-              backgroundColor: ['#ffe45e', '#ff6392'],
-              data: [response.data.new_developers, response.data.new_photographers]
-            }
-          ] 
-        }
-        this.chartdata = userlist
-        this.options = {
-          responsive: true,
-          maintainAspectRatio: false
-        }
-        this.loaded = true
-      })
-      .catch(error => {
-        console.log('There was an error:', error.response)
-      })
+  async mounted() {
+    try {
+      this.loaded = false
+
+      const response = await ImageService.getStats()
+
+      const userlist = {
+        labels: ['New developers', 'New photographers'], 
+        datasets: [
+          {
+            label: 'This month',
+            backgroundColor: ['#ffe45e', '#ff6392'],
+            data: [response.data.new_developers, response.data.new_photographers]
+          }
+        ] 
+      }
+      this.chartdata = userlist
+      this.options.responsive = true;
+      this.options.maintainAspectRatio = false;
+    } catch (error) {
+      console.log('There was an error:', error.response)
+    } finally {
+      this.loaded = true
+    }
   }
 }
 </script>
