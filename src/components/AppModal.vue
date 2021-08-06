@@ -27,19 +27,11 @@
           <p class="subtitle is-5">{{ photo.description }}</p>
         </div>
         <div class="row details" 
-          v-if="photo.exif.make != null 
-            && photo.exif.model != null 
-            && photo.exif.focal_length != null
-            &&photo.exif.aperture != null
-            &&photo.exif.exposure_time != null
-            &&photo.exif.iso != null">
+          v-if="hasDetails">
           <h5 class="title is-5">Details:</h5>
-          <p><span>Camera make:</span> {{ photo.exif.make }}</p>
-          <p><span>Camera model:</span> {{ photo.exif.model }}</p>
-          <p><span>Focal length:</span> {{ photo.exif.focal_length }}</p>
-          <p><span>Aperture:</span> {{ photo.exif.aperture }}</p>
-          <p><span>Exposure time:</span> {{ photo.exif.exposure_time }}</p>
-          <p><span>ISO:</span> {{ photo.exif.iso }}</p>
+          <p v-for="(value, field, index) in details" :key="index">
+            <span> {{ detailsFields[field] }} </span> {{ value }}
+          </p>
         </div>
         <div class="row buttons">
           <a :href="photo.urls.small" target="_blank" class="button">Small</a>
@@ -58,7 +50,34 @@ export default {
     modal: {type: Boolean},
     photo: {type: Object} 
   },
+  data () {
+    return {
+      detailsFields: {
+        make: 'Camera make:',
+        model: 'Camera model:',
+        focal_length: 'Focal length:',
+        aperture: 'Aperture:',
+        exposure_time: 'Exposure:',
+        iso: 'ISO:',
+      }
+    }
+  },
   computed: {
+    hasDetails() {
+      return Object.keys(this.details).length;
+    },
+    details() {
+      let detailsObj = {};
+      
+      for (const key in this.photo.exif) {
+        const element = this.photo.exif[key];
+        if (Object.hasOwnProperty.call(this.photo.exif, key) && element) {
+          detailsObj[key] = element;
+        }
+      }
+
+      return detailsObj;
+    },
     getDate() {
       let date = this.photo.created_at.slice(0, 10);
       return date;

@@ -2,7 +2,7 @@
   <section class="hero is-medium is-primary app-header">
     <div class="hero-body">
       <div 
-        v-if="this.images.length && getUrl != 'undefined'"
+        v-if="hasBgImg"
         class="app-cover" 
         :style="{ backgroundImage: 'url(' + getUrl + ')' }">
       </div>
@@ -16,10 +16,10 @@
           @keypress.enter="showResults"
         >
       </div>
-      <div class="image-info">
-        <p v-if="this.images.length && getUser != 'undefined'" class="subtitle is-4">Photo by {{ getUser }} ({{ getDate }})</p>
-        <p v-if="this.images.length && getLikes != 'undefined'" class="subtitle is-4">Likes: {{ getLikes }}</p>
-        <p v-if="this.images.length && getWidth != 'undefined' && getHeight != 'undefined'" class="subtitle is-4">Dimensions: {{ getWidth }} × {{ getHeight }}</p>
+      <div class="image-info" v-if="hasImg">
+        <p v-if="getUser" class="subtitle is-4">Photo by {{ getUser }} ({{ getDate }})</p>
+        <p v-if="getLikes" class="subtitle is-4">Likes: {{ getLikes }}</p>
+        <p v-if="getDimensions" class="subtitle is-4">Dimensions: {{ getWidth }} × {{ getHeight }}</p>
       </div>
     </div>
   </section>
@@ -35,9 +35,17 @@ data() {
   }
 },
 computed: {
+  hasImg() {
+    return this.images.length;
+  },
+  hasBgImg() {
+    return this.hasImg && this.getUrl;
+  },
+  getDimensions() {
+    return this.getWidth && this.getHeight;
+  },
   getUrl() {
-    let url = this.images[0].urls.regular;
-    return url;
+    return this.images[0].urls.regular;
   },
   getUser() {
     let user = this.images[0].user.name;
@@ -61,14 +69,14 @@ computed: {
   }
 },
 methods: {
-    showResults() {
-      ImageService.getSearch(this.query)
-      .then(response => {
+    async showResults() {
+      try {
+        const response = await ImageService.getSearch(this.query);
+        
         this.images = response.data.results
-      })
-      .catch(error => {
+      } catch (error) {
         console.log('There was an error:', error.response)
-      })
+      }
     }
   }
 }
