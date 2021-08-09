@@ -12,7 +12,7 @@ Photo App is made on Vue.js with using **Unsplash API**. It consist of 4 pages -
 
 The project is made on CSS framework **Bulma** with using **Chart.js**.
 
-Live demo on my [Github Pages](https://ni4yja.github.io/photo-app/#/)
+Live demo on my [Github Pages](https://ni4yja.github.io/photo-app/)
 ======================================================================
 
 ## Project setup
